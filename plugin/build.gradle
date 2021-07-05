@@ -48,7 +48,7 @@ publishing {
 
 pluginBundle {
     website = 'https://www.github.com/vasugr/'
-    vcsUrl = 'https://www.github.com/vasugr'
+    vcsUrl = 'https://github.com/vasugr/Task-Tracker'
     description = 'TASK TRACKER PLUGIN WHICH DISPLAYS TASK GRAPH AND TIME TAKEN BY TASKS'
     tags = ['plugin','gradle','groovy']
 
