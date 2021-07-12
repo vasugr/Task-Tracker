@@ -13,7 +13,6 @@ class TimeRecorder implements TaskExecutionListener, BuildListener{
 
     private List<TaskInfo> taskInfoList = []
     private BuildTrackerPlugin gradleTaskRecorder
-    private float sum = 0
     private float max = 0
     final Map<String, Long> taskTimingMap = new ConcurrentHashMap<>()
 
@@ -43,6 +42,7 @@ class TimeRecorder implements TaskExecutionListener, BuildListener{
         println "\n===================TIME TAKEN BY TASKS=====================\n"
 
         for (TaskInfo taskInfo : taskInfoList){
+            if(taskInfo.time <1) continue
             def finalStr = "\t$taskInfo.time ms\t\t| $taskInfo.path "
 
             if (taskInfo.isSuccess){
@@ -71,6 +71,5 @@ class TimeRecorder implements TaskExecutionListener, BuildListener{
         if (max < taskTime){
             max = taskTime
         }
-        sum += taskTime
     }
 }

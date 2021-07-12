@@ -19,7 +19,18 @@ import static org.gradle.internal.logging.text.StyledTextOutput.Style.Info
 import static org.gradle.internal.logging.text.StyledTextOutput.Style.Normal
 
 abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
+    @Internal
+    String outFilepath = project.projectDir.toString() + "/task_graph.txt"
+    @Internal
+    File outputGraphFile = new File(outFilepath)
+
+    @Internal
+    String rootFilepath = project.rootDir.toString() + "/final_task_graph.txt"
+    @Internal
+    File rootGraphFile = new File(rootFilepath)
+
     public TextReportRenderer renderer = new TextReportRenderer()
+
 
     @Internal
     GraphRenderer graphRenderer
@@ -28,15 +39,26 @@ abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
     protected ReportRenderer getRenderer() {
         return renderer
     }
+    void saveToRoot(String projName,File inputFile)
+    {
+        String val="";
+        val += "\n------------------------------------------------------\n"
+        val += "\t"+projName
+        val += "\n------------------------------------------------------\n"
+        String fileContent = inputFile.text
+        val += fileContent + "\n"
+        rootGraphFile.append(val)
+    }
 
     @Override
     protected void generate(final Project project) throws IOException {
-        // textOutput is injected and set into renderer by the parent abstract class before this method is called
-        StyledTextOutput textOutput = (getRenderer() as TextReportRenderer).textOutput
+        TextReportRenderer textRenderer = (getRenderer() as TextReportRenderer)
+        textRenderer.setOutputFile(outputGraphFile)
+        StyledTextOutput textOutput = textRenderer.textOutput
         graphRenderer = new GraphRenderer(textOutput)
+        //println(" filepath == "+outputGraphFile)
 
         TaskExecutionGraph executionGraph = project.gradle.taskGraph
-        // Getting a private field is possible thanks to groovy not honoring the private modifier
         DefaultExecutionPlan executionPlan = executionGraph.executionPlan
         Set<Node> tasksOfCurrentProject = executionPlan.entryNodes.findAll {
             it.getTask().getProject() == project
@@ -48,12 +70,15 @@ abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
             it.hasProperty('task')
         }.each {
             renderTreeRecursive(it, true, textOutput, true, new HashSet<Node>(), 1)
-            if (it.dependencySuccessors.isEmpty()) {
-                printNoTaskDependencies(textOutput)
-            }
-            textOutput.println()
+
+           /*println("\n-->")
+           textOutput.println()
+            println("<--\n")*/
         }
+        /*println("\n==>")
         textOutput.println()
+        println("<==\n")*/
+        saveToRoot(project.name, outputGraphFile)
     }
 
     void renderTreeRecursive(Node taskNode, boolean lastChild,
@@ -79,6 +104,7 @@ abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
             if (taskSubtreeAlreadyPrinted) {
                 styledTextOutput.text(" *")
             }
+
         }, lastChild)
 
         if (!taskSubtreeAlreadyPrinted) {
@@ -90,8 +116,5 @@ abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
             graphRenderer.completeChildren()
         }
     }
-    private static void printNoTaskDependencies(StyledTextOutput textOutput) {
-        textOutput.withStyle(Info).text("No task dependencies")
-        textOutput.println()
-    }
+
 }

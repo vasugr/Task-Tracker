@@ -13,5 +13,4 @@ class TaskInfo {
         this.isSkipped = isSkipped
         this.isSuccess = isSuccess
     }
-
 }

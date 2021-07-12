@@ -23,16 +23,16 @@ repositories {
 dependencies {
 
 }
-group = 'com.vasug'
+group = 'com.github.vasugr'
 version = "0.0.1"
 
 gradlePlugin {
     // Define the plugin
     plugins {
         taskTracker {
-            id = 'net.asdfgh.tasktracker'
+            id = 'com.github.vasugr.tasktracker'
             displayName = 'TASK TRACKER'
-            description = 'TASK TRACKER PLUGIN WHICH DISPLAYS TASK GRAPH AND TIME TAKEN BY TASKS'
+            description = 'A lightweight tool which displays task graph and time taken by tasks in a gradle project'
             implementationClass = 'com.vasug.BuildTrackerPlugin'
         }
     }
@@ -49,8 +49,8 @@ publishing {
 pluginBundle {
     website = 'https://www.github.com/vasugr/'
     vcsUrl = 'https://github.com/vasugr/Task-Tracker'
-    description = 'TASK TRACKER PLUGIN WHICH DISPLAYS TASK GRAPH AND TIME TAKEN BY TASKS'
-    tags = ['plugin','gradle','groovy']
+    description = 'A lightweight tool which displays task graph and time taken by tasks in a gradle project'
+    tags = ['plugin','gradle','groovy','task-graph','build-time']
 
     plugins {
         taskTracker {

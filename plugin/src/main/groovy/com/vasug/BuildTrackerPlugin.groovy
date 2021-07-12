@@ -17,6 +17,7 @@ class BuildTrackerPlugin implements Plugin<Project> {
         // Register a task
         project.gradle.addBuildListener(new TimeRecorder(this))
 
+
         project.allprojects { Project rootOrSubProject ->
             if (rootOrSubProject.tasks.findByName(TASK_NAME)) {
                 // Skip if this sub-project already has our task. This can happen for example if the plugin is applied on allProjects.
@@ -25,6 +26,9 @@ class BuildTrackerPlugin implements Plugin<Project> {
             rootOrSubProject.tasks.register(TASK_NAME, TaskTreeTaskBase)
 
             rootOrSubProject.gradle.taskGraph.whenReady {
+                String rootFilepath = rootOrSubProject.rootDir.toString() + "/final_task_graph.txt"
+                File rootGraphFile = new File(rootFilepath)
+                rootGraphFile.text=''
                 if (project.gradle.taskGraph.allTasks.any { Task task -> task.class in TaskTreeTaskBase }) {
                     rootOrSubProject.tasks.configureEach { Task task ->
                         if (!(task in TaskTreeTaskBase)) {
