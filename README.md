@@ -17,7 +17,7 @@ plugins {
 ## Usage
 
 * Add `task-graph` next to all the tasks for which you want the report
-* `gradle <task 1>...<task N> task-graph`
+* `gradle <task name> task-graph`
 * In a multi-project, apply the plugin configuration for the root project only, it will be automatically added  to all the child projects
 
 
