@@ -28,7 +28,7 @@ class BuildTrackerPlugin implements Plugin<Project> {
             rootOrSubProject.gradle.taskGraph.whenReady {
                 String rootFilepath = rootOrSubProject.rootDir.toString() + "/final_task_graph.txt"
                 File rootGraphFile = new File(rootFilepath)
-                rootGraphFile.text=''
+                rootGraphFile.text="(*) - subtree omitted as it was printed previously in the same project\n"
                 if (project.gradle.taskGraph.allTasks.any { Task task -> task.class in TaskTreeTaskBase }) {
                     rootOrSubProject.tasks.configureEach { Task task ->
                         if (!(task in TaskTreeTaskBase)) {

@@ -24,7 +24,7 @@ dependencies {
 
 }
 group = 'com.github.vasugr'
-version = "0.0.1"
+version = "0.0.4"
 
 gradlePlugin {
     // Define the plugin
@@ -47,7 +47,7 @@ publishing {
 }
 
 pluginBundle {
-    website = 'https://www.github.com/vasugr/'
+    website = 'https://github.com/vasugr/Task-Tracker'
     vcsUrl = 'https://github.com/vasugr/Task-Tracker'
     description = 'A lightweight tool which displays task graph and time taken by tasks in a gradle project'
     tags = ['plugin','gradle','groovy','task-graph','build-time']

@@ -15,7 +15,6 @@ import org.gradle.internal.logging.text.StyledTextOutput
 
 import static org.gradle.internal.logging.text.StyledTextOutput.Style.Description
 import static org.gradle.internal.logging.text.StyledTextOutput.Style.Identifier
-import static org.gradle.internal.logging.text.StyledTextOutput.Style.Info
 import static org.gradle.internal.logging.text.StyledTextOutput.Style.Normal
 
 abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
@@ -30,7 +29,6 @@ abstract class TaskTreeTaskBase extends ProjectBasedReportTask {
     File rootGraphFile = new File(rootFilepath)
 
     public TextReportRenderer renderer = new TextReportRenderer()
-
 
     @Internal
     GraphRenderer graphRenderer

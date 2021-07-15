@@ -43,7 +43,7 @@ class TimeRecorder implements TaskExecutionListener, BuildListener{
 
         for (TaskInfo taskInfo : taskInfoList){
             if(taskInfo.time <1) continue
-            def finalStr = "\t$taskInfo.time ms\t\t| $taskInfo.path "
+            def finalStr = String.format("%-22s%-22s ","\t$taskInfo.time ms","| $taskInfo.path ")
 
             if (taskInfo.isSuccess){
                 finalStr = finalStr + " " + '\033[32m' + "[ Success ]" + '\033[0m'
