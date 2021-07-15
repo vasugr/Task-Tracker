@@ -32,7 +32,7 @@ gradlePlugin {
         taskTracker {
             id = 'com.github.vasugr.tasktracker'
             displayName = 'TASK TRACKER'
-            description = 'A lightweight tool which displays task graph and time taken by tasks in a gradle project'
+            description = 'Tweaked Report format'
             implementationClass = 'com.vasug.BuildTrackerPlugin'
         }
     }

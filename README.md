@@ -10,7 +10,7 @@ A lightweight tool which displays task graph and time taken by tasks in a gradle
   In `build.gradle` file, add the following plugin id and version no
 ```groovy
 plugins {
-    id "com.github.vasugr.tasktracker" version "0.0.1"
+    id "com.github.vasugr.tasktracker" version "0.0.4"
 }
 ```
 
